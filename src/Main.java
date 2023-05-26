@@ -20,9 +20,10 @@ public class Main {
         String json_original2;
         //creación del primer objeto
         Animal animal_original = new Animal();
-        System.out.println(animal_original);
+        System.out.println("Animal original 1 (java object): " + animal_original);
         //creación del segundo objeto
         Animal animal_original_2 = new Animal();
+        System.out.println("Animal original 2 (java object): " + animal_original_2);
         ArrayList<String> enfermedades = new ArrayList<>();
         enfermedades.add("Leishmania");
         enfermedades.add("Rabia");
@@ -35,9 +36,9 @@ public class Main {
 
         //pasamos los objetos java animal_original a json
         json_original = gson.toJson(animal_original, Animal.class);
-        System.out.println(json_original);
+        System.out.println("Animal 1 en json: " + json_original);
         json_original2 = gson.toJson(animal_original_2, Animal.class);
-        System.out.println(json_original2);
+        System.out.println("Animal 2 en json: " + json_original2);
         //se almacenan los dos objetos animal en un arraylist para que el writer lo almacene también como un array en json
         ArrayList<Animal> animales = new ArrayList<>();
         animales.add(animal_original);
@@ -71,7 +72,7 @@ public class Main {
         ArrayList<Animal> animalesAObjeto = gson.fromJson(jsonString, tipoLista);
 
         for (Animal animal : animalesAObjeto) {
-            System.out.println(animal.toString());
+            System.out.println("Deserialización de json a objetos java: " + animal.toString());
         }
 
     }

@@ -1,6 +1,6 @@
 # Ejercicio JSON
-Para almacenar más de un objeto, es necesario guardarlos en un array en Java para que así también se almacenen
-en el fichero JSON como un array, de lo contrario daría problemas de lectura:
+Para serializar más de un objeto java, es necesario guardarlos previamente en un array para que así también se almacenen
+en el fichero JSON como tal, de lo contrario daría problemas de lectura:
 
 ```
        //Se almacenan los dos objetos animal en un arraylist para que el writer lo almacene también como un array en json
