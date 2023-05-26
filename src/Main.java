@@ -1,6 +1,7 @@
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,10 +18,10 @@ public class Main {
         Gson gson = new Gson();
         String json_original;
         String json_original2;
-
+        //creación del primer objeto
         Animal animal_original = new Animal();
         System.out.println(animal_original);
-        //segundo objeto
+        //creación del segundo objeto
         Animal animal_original_2 = new Animal();
         ArrayList<String> enfermedades = new ArrayList<>();
         enfermedades.add("Leishmania");
@@ -30,10 +31,11 @@ public class Main {
         animal_original_2.setEspecie("Perro");
         animal_original_2.setPatologias(enfermedades);
 
-        //pasamos los objeto animal_original a json
+        /*Serialización*/
+
+        //pasamos los objetos java animal_original a json
         json_original = gson.toJson(animal_original, Animal.class);
         System.out.println(json_original);
-
         json_original2 = gson.toJson(animal_original_2, Animal.class);
         System.out.println(json_original2);
         //se almacenan los dos objetos animal en un arraylist para que el writer lo almacene también como un array en json
@@ -42,17 +44,26 @@ public class Main {
         animales.add(animal_original_2);
         String json = gson.toJson(animales);
 
-        // Creamos un fichero y guardamos los json originales
+        //Creamos un fichero y guardamos los objetos java originales como array
         FileWriter writer = new FileWriter("output.json");
         writer.write(json);
         writer.close();
 
-        //leemos el fichero json y pasamos lo pasamos a nuevos objetos animal
+        /*Deserialización*/
+
+        //Leemos el fichero json
         FileReader reader = new FileReader("output.json");
-        char[] buffer = new char[1024];
-        int numCharsRead = reader.read(buffer);
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        StringBuilder builder = new StringBuilder();
+        int numCharsRead;
+
+        while ((numCharsRead = bufferedReader.read()) != -1) {
+            builder.append((char) numCharsRead);
+        }
+
         reader.close();
-        String jsonString = new String(buffer, 0, numCharsRead);
+        //y creamos el string con el contenido del fichero output.json
+        String jsonString = builder.toString();
         //se usa el objeto Type para especificar el tipo de objeto que va a ser deserializado, en este caso, un arraylist de objetos de tipo Animal
         Type tipoLista = new TypeToken<ArrayList<Animal>>() {
         }.getType();
